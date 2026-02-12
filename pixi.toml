@@ -1,0 +1,12 @@
+[project]
+name = "fileglancer-demo-app"
+version = "1.0.0"
+description = "A simple demo app for testing Fileglancer job submission"
+channels = ["conda-forge"]
+platforms = ["linux-64"]
+
+[dependencies]
+python = ">=3.11"
+
+[tasks]
+demo = "python demo.py"
