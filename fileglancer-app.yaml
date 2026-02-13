@@ -2,6 +2,9 @@ name: Demo App
 description: A simple demo app for testing Fileglancer job submission. Sleeps and prints messages.
 version: "1.0"
 
+requirements:
+  - "pixi>=0.40"
+
 entryPoints:
   - id: run
     name: Run Demo
