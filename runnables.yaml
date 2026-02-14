@@ -5,7 +5,7 @@ version: "1.0"
 requirements:
   - "pixi>=0.40"
 
-entryPoints:
+runnables:
   - id: run
     name: Run Demo
     description: Sleep for a specified duration and print a message repeatedly.
