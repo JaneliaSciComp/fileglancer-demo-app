@@ -11,7 +11,7 @@ runnables:
     description: Sleep for a specified duration and print a message repeatedly.
     command: pixi run python demo.py
     parameters:
-      - id: sleep_seconds
+      - flag: --sleep_seconds
         name: Sleep Duration
         type: integer
         description: Number of seconds to sleep between messages
@@ -20,14 +20,14 @@ runnables:
         min: 0
         max: 300
 
-      - id: message
+      - flag: --message
         name: Message
         type: string
         description: The message to print
         required: true
         default: "Hello from Fileglancer!"
 
-      - id: repeat
+      - flag: --repeat
         name: Repeat Count
         type: integer
         description: Number of times to repeat the message
@@ -36,13 +36,13 @@ runnables:
         min: 1
         max: 100
 
-      - id: output_dir
+      - flag: --output_dir
         name: Output Directory
         type: directory
         description: Directory to write a summary output file (optional)
         required: false
 
-      - id: verbose
+      - flag: --verbose
         name: Verbose
         type: boolean
         description: Enable verbose output with sleep countdown
