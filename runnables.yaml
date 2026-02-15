@@ -11,15 +11,6 @@ runnables:
     description: Sleep for a specified duration and print a message repeatedly.
     command: pixi run python demo.py
     parameters:
-      - flag: --sleep_seconds
-        name: Sleep Duration
-        type: integer
-        description: Number of seconds to sleep between messages
-        required: false
-        default: 5
-        min: 0
-        max: 300
-
       - flag: --message
         name: Message
         type: string
@@ -42,12 +33,25 @@ runnables:
         description: Directory to write a summary output file (optional)
         required: false
 
-      - flag: --verbose
-        name: Verbose
-        type: boolean
-        description: Enable verbose output with sleep countdown
-        required: false
-        default: false
+      - section: Advanced Options
+        description: Optional tuning parameters
+        collapsed: true
+        parameters:
+          - flag: --sleep_seconds
+            name: Sleep Duration
+            type: integer
+            description: Number of seconds to sleep between messages
+            required: false
+            default: 5
+            min: 0
+            max: 300
+
+          - flag: --verbose
+            name: Verbose
+            type: boolean
+            description: Enable verbose output with sleep countdown
+            required: false
+            default: false
 
     resources:
       cpus: 1
