@@ -24,4 +24,4 @@ pixi run demo --message "Hello!" --sleep_seconds 2 --repeat 3 --verbose
 
 ## Fileglancer Integration
 
-This repo contains a `fileglancer-app.yaml` manifest. To use it in Fileglancer, add the GitHub repo URL on the Apps page.
+This repo contains a `runnables.yaml` manifest. To use it in Fileglancer, add the GitHub repo URL on the Apps page.
