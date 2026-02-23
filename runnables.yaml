@@ -80,12 +80,6 @@ runnables:
         min: 0
         max: 65535
 
-      - flag: --serve_dir
-        name: Serve Directory
-        type: directory
-        description: Optionally serve files from this directory
-        required: false
-
     resources:
       cpus: 1
       memory: "1 GB"

@@ -19,36 +19,17 @@ def log(msg):
 
 
 class DemoHandler(SimpleHTTPRequestHandler):
-    """Simple handler that serves a status page and optionally a directory."""
+    """Simple handler that serves a status page."""
 
-    def __init__(self, *args, serve_dir=None, message="Hello from Fileglancer!", **kwargs):
-        self._serve_dir = serve_dir
+    def __init__(self, *args, message="Hello from Fileglancer!", **kwargs):
         self._message = message
         super().__init__(*args, **kwargs)
-
-    def translate_path(self, path):
-        if self._serve_dir:
-            # Serve files from the configured directory
-            import posixpath
-            import urllib.parse
-            path = urllib.parse.unquote(posixpath.normpath(path))
-            parts = path.split("/")
-            # Build path relative to serve_dir
-            result = self._serve_dir
-            for part in parts:
-                if not part or part == ".":
-                    continue
-                if part == "..":
-                    continue
-                result = os.path.join(result, part)
-            return result
-        return super().translate_path(path)
 
     def do_GET(self):
         if self.path == "/" or self.path == "":
             self._serve_status_page()
         else:
-            super().do_GET()
+            self.send_error(404)
 
     def _serve_status_page(self):
         html = f"""<!DOCTYPE html>
@@ -117,17 +98,12 @@ def main():
         "--message", type=str, default="Hello from Fileglancer!",
         help="Message to display on the status page",
     )
-    parser.add_argument(
-        "--serve_dir", type=str, default="",
-        help="Directory to serve files from (optional)",
-    )
     args = parser.parse_args()
 
     log("=== Fileglancer Demo Service ===")
     log(f"PID: {os.getpid()}")
     log(f"CWD: {os.getcwd()}")
     log(f"Message: {args.message}")
-    log(f"Serve dir: {args.serve_dir or '<none>'}")
     log(f"Port arg: {args.port}")
 
     service_url_path = os.environ.get("SERVICE_URL_PATH", "")
@@ -144,7 +120,6 @@ def main():
     def handler_factory(*handler_args, **handler_kwargs):
         return DemoHandler(
             *handler_args,
-            serve_dir=args.serve_dir or None,
             message=args.message,
             **handler_kwargs,
         )
