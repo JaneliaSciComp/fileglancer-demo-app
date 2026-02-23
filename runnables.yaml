@@ -57,3 +57,36 @@ runnables:
       cpus: 1
       memory: "1 GB"
       walltime: "00:10"
+
+  - id: serve
+    name: Demo Service
+    type: service
+    description: Start a simple HTTP server that displays a status page. Runs until stopped.
+    command: pixi run python demo_service.py
+    parameters:
+      - flag: --message
+        name: Message
+        type: string
+        description: Message to display on the status page
+        required: false
+        default: "Hello from Fileglancer!"
+
+      - flag: --port
+        name: Port
+        type: integer
+        description: Port to listen on (0 = auto-detect a free port)
+        required: false
+        default: 0
+        min: 0
+        max: 65535
+
+      - flag: --serve_dir
+        name: Serve Directory
+        type: directory
+        description: Optionally serve files from this directory
+        required: false
+
+    resources:
+      cpus: 1
+      memory: "1 GB"
+      walltime: "08:00"
