@@ -24,7 +24,6 @@ class DemoHandler(SimpleHTTPRequestHandler):
     def __init__(self, *args, serve_dir=None, message="Hello from Fileglancer!", **kwargs):
         self._serve_dir = serve_dir
         self._message = message
-        self._start_time = datetime.now()
         super().__init__(*args, **kwargs)
 
     def translate_path(self, path):
@@ -48,19 +47,10 @@ class DemoHandler(SimpleHTTPRequestHandler):
     def do_GET(self):
         if self.path == "/" or self.path == "":
             self._serve_status_page()
-        elif self.path == "/health":
-            self.send_response(200)
-            self.send_header("Content-Type", "application/json")
-            self.end_headers()
-            self.wfile.write(b'{"status": "ok"}')
         else:
             super().do_GET()
 
     def _serve_status_page(self):
-        uptime = datetime.now() - self._start_time
-        hours, remainder = divmod(int(uptime.total_seconds()), 3600)
-        minutes, seconds = divmod(remainder, 60)
-
         html = f"""<!DOCTYPE html>
 <html>
 <head>
@@ -78,16 +68,9 @@ class DemoHandler(SimpleHTTPRequestHandler):
     <h1>Demo Service</h1>
     <div class="status"><span class="dot"></span> Running</div>
     <p><strong>Message:</strong> {self._message}</p>
-    <p><strong>Started:</strong> {self._start_time.strftime('%Y-%m-%d %H:%M:%S')}</p>
-    <p><strong>Uptime:</strong> {hours}h {minutes}m {seconds}s</p>
     <p><strong>Hostname:</strong> {socket.gethostname()}</p>
     <p><strong>PID:</strong> {os.getpid()}</p>
     <p>This is a demo service for testing Fileglancer's service-type app support.</p>
-    <p>Endpoints:</p>
-    <ul>
-        <li><code>/</code> - This status page</li>
-        <li><code>/health</code> - JSON health check</li>
-    </ul>
 </body>
 </html>"""
         self.send_response(200)
