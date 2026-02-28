@@ -4,6 +4,7 @@ version: "1.0"
 
 requirements:
   - "pixi>=0.40"
+  - apptainer
 
 runnables:
   - id: run
@@ -84,3 +85,20 @@ runnables:
       cpus: 1
       memory: "1 GB"
       walltime: "08:00"
+
+  - id: lolcow
+    name: Demo Container
+    description: Print a message with a talking cow using the classic lolcow Apptainer container.
+    command: cowsay
+    container: godlovedc/lolcow
+    parameters:
+      - name: Message
+        type: string
+        description: What the cow should say
+        required: true
+        default: "Hello from Fileglancer!"
+
+    resources:
+      cpus: 1
+      memory: "1 GB"
+      walltime: "00:05"
