@@ -54,6 +54,18 @@ runnables:
             required: false
             default: false
 
+          - flag: --log_level
+            name: Log Level
+            type: enum
+            description: Set the logging verbosity level
+            options:
+              - DEBUG
+              - INFO
+              - WARNING
+              - ERROR
+            default: INFO
+            hidden: true
+
     resources:
       cpus: 1
       memory: "1 GB"
