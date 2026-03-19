@@ -3,7 +3,9 @@
 import argparse
 import os
 import time
+import sys
 from datetime import datetime
+from loguru import logger
 
 
 def main():
@@ -28,16 +30,23 @@ def main():
         "--verbose", action="store_true",
         help="Enable verbose output",
     )
+    parser.add_argument(
+        "--log_level", type=str, default="INFO",
+        help="Logging level (DEBUG, INFO, WARNING, ERROR, CRITICAL)",
+    )
     args = parser.parse_args()
 
+    # Configure logging based on the log level in the settings
+    logger.remove()
+    logger.add(sys.stderr, level=args.log_level)
+
     print("=== Fileglancer Demo App ===")
-    print(f"Sleep seconds: {args.sleep_seconds}")
-    print(f"Message: {args.message}")
-    print(f"Repeat: {args.repeat}")
-    print(f"Output dir: {args.output_dir or '<none>'}")
-    print(f"Verbose: {args.verbose}")
-    print("============================")
-    print()
+    logger.info(f"Sleep seconds: {args.sleep_seconds}")
+    logger.info(f"Message: {args.message}")
+    logger.info(f"Repeat: {args.repeat}")
+    logger.info(f"Output dir: {args.output_dir or '<none>'}")
+    logger.info(f"Verbose: {args.verbose}")
+    logger.info(f"Log level: {args.log_level}")
 
     for i in range(1, args.repeat + 1):
         print(f"[{i}/{args.repeat}] {args.message}")
@@ -48,7 +57,7 @@ def main():
     if args.output_dir:
         os.makedirs(args.output_dir, exist_ok=True)
         output_file = os.path.join(args.output_dir, "demo-output.txt")
-        print(f"Writing output to {output_file}")
+        logger.info(f"Writing output to {output_file}")
         with open(output_file, "w") as f:
             f.write(f"Demo completed at {datetime.now()}\n")
             f.write(f"Message: {args.message}\n")
@@ -57,7 +66,6 @@ def main():
                 f"{args.sleep_seconds} second intervals\n"
             )
 
-    print()
     print("Done!")
 
 
