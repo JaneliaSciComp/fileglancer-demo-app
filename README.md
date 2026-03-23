@@ -21,6 +21,7 @@ pixi run demo --message "Hello!" --sleep_seconds 2 --repeat 3 --verbose
 | `--repeat` | integer | 3 | Number of times to repeat (1-100) |
 | `--output_dir` | directory | | Directory to write a summary file (optional) |
 | `--verbose` | flag | false | Show sleep countdown |
+| `--log_level` | enum | INFO | Set the logging verbosity level. Options: DEBUG, INFO, WARNING, ERROR |
 
 ## Fileglancer Integration
 
