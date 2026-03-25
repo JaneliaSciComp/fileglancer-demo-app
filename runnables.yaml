@@ -4,7 +4,6 @@ version: "1.0"
 
 requirements:
   - "pixi>=0.40"
-  - apptainer
 
 runnables:
   - id: run
@@ -100,6 +99,8 @@ runnables:
 
   - id: lolcow
     name: Demo Container
+    requirements:
+      - apptainer
     description: Print a message with a talking cow using the classic lolcow Apptainer container.
     command: cowsay
     container: godlovedc/lolcow
