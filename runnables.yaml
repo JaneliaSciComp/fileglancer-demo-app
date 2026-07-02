@@ -1,6 +1,5 @@
 name: Demo App
 description: A simple demo app for testing Fileglancer job submission. Sleeps and prints messages.
-version: "1.0"
 
 runnables:
   - id: run
