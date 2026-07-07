@@ -97,6 +97,83 @@ runnables:
       memory: "1 GB"
       walltime: "08:00"
 
+  - id: mandelbrot
+    name: Mandelbrot (Conda)
+    description: Render the Mandelbrot set as ASCII art with NumPy, running inside a conda environment.
+    command: python mandelbrot.py
+    conda_env: fileglancer-demo
+    requirements:
+      - miniforge
+    parameters:
+      - flag: --width
+        name: Width
+        type: integer
+        description: Width of the rendering in characters
+        required: false
+        default: 120
+        min: 20
+        max: 500
+
+      - flag: --height
+        name: Height
+        type: integer
+        description: Height of the rendering in characters
+        required: false
+        default: 40
+        min: 10
+        max: 200
+
+      - flag: --zoom
+        name: Zoom
+        type: number
+        description: Zoom factor into the view center
+        required: false
+        default: 1.0
+        min: 0.1
+        max: 100000
+
+      - section: View Region
+        description: Where to look in the complex plane
+        collapsed: true
+        parameters:
+          - flag: --center_x
+            name: Center X
+            type: number
+            description: Real coordinate of the view center (try -0.7453 with zoom 200)
+            required: false
+            default: -0.75
+            min: -2.5
+            max: 1.5
+
+          - flag: --center_y
+            name: Center Y
+            type: number
+            description: Imaginary coordinate of the view center (try 0.1127 with zoom 200)
+            required: false
+            default: 0.0
+            min: -1.5
+            max: 1.5
+
+          - flag: --iterations
+            name: Max Iterations
+            type: integer
+            description: Maximum iterations per pixel (higher = more detail at high zoom)
+            required: false
+            default: 80
+            min: 10
+            max: 5000
+
+      - flag: --output_dir
+        name: Output Directory
+        type: directory
+        description: Directory to write the rendering as a text file (optional)
+        required: false
+
+    resources:
+      cpus: 1
+      memory: "1 GB"
+      walltime: "00:10"
+
   - id: lolcow
     name: Demo Container
     requirements:
